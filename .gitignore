@@ -2,3 +2,4 @@ venv/
 .tox/
 minecraft_libs/__pycache__/
 version.json
+libs.txt

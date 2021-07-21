@@ -6,8 +6,8 @@ import click
 
 
 @click.command()
-@click.option("--platform", default=sys.platform, help="Output platform (win32, linux, darwin).")
-@click.option("--output", default="tty", help="Output option (tty, txt).")
+@click.option("-p", "--platform", default=sys.platform, help="Output platform (win32, linux, darwin).")
+@click.option("-o", "--output", default="tty", help="Output option (tty, txt).")
 def make_output(platform, output):
     """Return libraries list"""
 
