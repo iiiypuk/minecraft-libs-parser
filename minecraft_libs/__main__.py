@@ -1,19 +1,15 @@
-#!/usr/bin/env python3
+"""Parse version.json file and return libs"""
 
 import sys
 import json
 import click
-
-__author__ = "Alexander Popov"
-__version__ = "1.0.2"
-__license__ = "Unlicense"
 
 
 @click.command()
 @click.option("--platform", default=sys.platform, help="Output platform (win32, linux, darwin).")
 @click.option("--output", default="tty", help="Output option (tty, txt).")
 def make_output(platform, output):
-    """ Return libraries list """
+    """Return libraries list"""
 
     libraries = parse_libs()
 
@@ -38,7 +34,7 @@ def make_output(platform, output):
 
         if platform == "win32":
             print("\nWindows generate libraries list complete!")
-        elif platform == "linux" or platform == "darwin":
+        elif ("linux", "darwin") in platform:
             print("\nUnix generate libraries list complete!")
     elif output == "txt":
         with open("./libs.txt", "w", encoding="utf-8") as f:
@@ -46,23 +42,27 @@ def make_output(platform, output):
 
         if platform == "win32":
             print("\nWindows generate libraries list complete!\n" "See libs.txt file.")
-        elif platform == "linux" or platform == "darwin":
+        elif ("linux", "darwin") in platform:
             print("\nUnix generate libraries list complete!\n" "See libs.txt file.")
 
 
 def parse_libs():
-    """ Make libraries list from version.json file """
+    """Make libraries list from version.json file"""
 
     _ = []
 
-    with open("./version.json", "r", encoding="utf-8") as f:
-        file_data = json.loads(f.read())
+    try:
+        with open("./version.json", "r", encoding="utf-8") as f:
+            file_data = json.loads(f.read())
 
-        for lib in file_data["libraries"]:
-            _.append(lib["downloads"]["artifact"]["path"])
+            for lib in file_data["libraries"]:
+                _.append(lib["downloads"]["artifact"]["path"])
+    except FileNotFoundError:
+        print("ERROR: File version.json not found.")
+        sys.exit(-1)
 
     return _
 
 
 if __name__ == "__main__":
-    make_output()
+    make_output(platform=sys.platform, output="tty")
