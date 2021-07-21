@@ -65,4 +65,5 @@ def parse_libs():
 
 
 if __name__ == "__main__":
-    make_output(platform=sys.platform, output="tty")
+    # pylint: disable=no-value-for-parameter
+    make_output()
