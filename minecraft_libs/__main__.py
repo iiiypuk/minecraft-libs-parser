@@ -34,7 +34,7 @@ def make_output(platform, output):
 
         if platform == "win32":
             print("\nWindows generate libraries list complete!")
-        elif ("linux", "darwin") in platform:
+        elif platform in ("linux", "darwin"):
             print("\nUnix generate libraries list complete!")
     elif output == "txt":
         with open("./libs.txt", "w", encoding="utf-8") as f:
@@ -42,7 +42,7 @@ def make_output(platform, output):
 
         if platform == "win32":
             print("\nWindows generate libraries list complete!\n" "See libs.txt file.")
-        elif ("linux", "darwin") in platform:
+        elif platform in ("linux", "darwin"):
             print("\nUnix generate libraries list complete!\n" "See libs.txt file.")
 
 
